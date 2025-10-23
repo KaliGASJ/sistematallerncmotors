@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Iniciar Sesión - NC MOTORS{% endblock %}
+
+
+{% block content %}
+
+<style>
+    .login-container {
+        max-width: 450px;
+        margin: 40px auto; /* Centrado */
+        padding: 30px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        text-align: center;
+    }
+    .login-container img {
+        width: 150px; /* Logo más pequeño para el login */
+        margin-bottom: 25px;
+    }
+    .login-container h2 {
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 25px;
+        color: #2C3E50; /* Gris oscuro */
+    }
+    .login-form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px; /* Espacio entre campos */
+    }
+    .login-form input {
+        padding: 14px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-family: 'Inter', sans-serif;
+    }
+    .login-form button {
+        padding: 14px;
+        font-size: 16px;
+        font-weight: 600;
+        background-color: #E67E22; /* Naranja */
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    .login-form button:hover {
+        background-color: #D35400; /* Naranja oscuro */
+    }
+    .form-errors {
+        background-color: #f8d7da; /* Rojo claro */
+        color: #721c24; /* Rojo oscuro */
+        border: 1px solid #f5c6cb;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        text-align: left;
+    }
+</style>
+
+<div class="login-container">
+    <img src="{% static 'log.png' %}" alt="Logo NC Motors">
+    <h2>Inicio de Sesión</h2>
+
+    {% if form.errors %}
+        <div class="form-errors">
+            <p><strong>Error:</strong> Tu usuario y contraseña no coinciden. Por favor, inténtalo de nuevo.</p>
+        </div>
+    {% endif %}
+
+    <form class="login-form" method="post">
+        {% csrf_token %}
+        
+        <input type="text" name="username" placeholder="Nombre de Usuario" required>
+        
+        <input type="password" name="password" placeholder="Contraseña" required>
+        
+        <button type="submit">Ingresar</button>
+    </form>
+</div>
+
+{% endblock %}
