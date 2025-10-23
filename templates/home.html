@@ -1,33 +1,63 @@
 {% extends 'base.html' %}
 
-{% block title %}Bienvenido - NC MOTORS{% endblock %}
+{% block title %}Panel Principal - NC MOTORS{% endblock %}
 
 
 {% block content %}
 <style>
     .welcome-header {
         text-align: center;
-        padding: 40px 0;
-        border-bottom: 2px solid #ECF0F1;
+        padding: 20px 0; /* Un poco menos de padding vertical */
+        margin-bottom: 30px;
     }
+    
     .welcome-header h1 {
-        font-size: 32px;
+        font-size: 34px; /* Un poco más grande */
         font-weight: 700;
-        color: #2C3E50;
+        color: var(--color-text); /* Color de texto principal del tema */
         margin-bottom: 10px;
     }
+
+    /* Resaltamos el nombre de usuario con el color de la marca */
+    .welcome-header h1 span {
+        color: var(--color-brand);
+        /* Efecto de brillo sutil */
+        text-shadow: 0 0 15px var(--color-brand-glow);
+    }
+
     .welcome-header p {
         font-size: 18px;
-        color: #555;
+        color: var(--color-text-muted); /* Color de texto secundario */
+    }
+
+    /* Línea divisora sutil estilo "tech" */
+    .divider {
+        border: 0;
+        height: 1px;
+        background: linear-gradient(to right, 
+            transparent, 
+            var(--color-bg-light), 
+            transparent
+        );
+        margin: 30px 0;
+    }
+
+    .dashboard-placeholder {
+        text-align: center;
+        font-size: 16px;
+        color: var(--color-text-muted); /* Mismo color secundario */
+        line-height: 1.6;
     }
 </style>
 
 <div class="welcome-header">
-    <h1>¡Bienvenido, {{ user.get_full_name|default:user.username }}!</h1>
+    <h1>¡Bienvenido, <span>{{ user.get_full_name|default:user.username }}</span>!</h1>
     <p>Has iniciado sesión en el Sistema de Gestión NC Motors.</p>
 </div>
 
-<p style="text-align: center; margin-top: 30px;">
+<hr class="divider">
+
+<p class="dashboard-placeholder">
     Este es el panel principal. Próximamente podrás gestionar clientes, vehículos y órdenes de trabajo desde aquí.
 </p>
 

@@ -4,33 +4,58 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <!-- El título ahora es dinámico, con "NC MOTORS" como valor por defecto -->
-    <title>{% block title %}NC MOTORS{% endblock %}</title>
+    <title>{% block title %}Sistema NC MOTORS{% endblock %}</title>
 
-    <!-- Fuente profesional -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
 
     <style>
+        /* Definición de paleta "Tech" (Consistente con login.html) */
+        :root {
+            --color-brand: #E67E22; /* Naranja NC Motors */
+            --color-brand-glow: rgba(230, 126, 34, 0.4);
+            --color-bg-dark: #1e1e1e; /* Fondo principal */
+            --color-bg-light: #2a2a2a; /* Tono claro para la sombra */
+            --color-bg-shadow: #141414; /* Tono oscuro para la sombra */
+            --color-text: #e0e0e0;
+            --color-text-muted: #757575;
+            --color-error: #e57373; /* Rojo suave */
+        }
+
+        /* --- Estilo Base del Body --- */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #ECF0F1; /* Un gris muy claro, como metal limpio */
+            background-color: var(--color-bg-dark);
+            color: var(--color-text);
+            
+            /* Patrón de rejilla "tech" sutil */
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 35px 35px;
+            
             margin: 0;
             padding: 0;
-            color: #333;
-            /* Aseguramos que el contenido ocupe al menos toda la pantalla */
             display: flex;
             flex-direction: column;
             min-height: 100vh;
         }
 
+        /* --- Navbar (Estilo Neumórfico Flotante) --- */
         .navbar {
-            background-color: #2C3E50; /* Gris carbón oscuro */
+            background-color: var(--color-bg-dark);
             padding: 20px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            color: white;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            
+            /* Sombra suave para "flotar" sobre el fondo */
+            box-shadow: 0 8px 24px var(--color-bg-shadow);
+            
+            /* Se fija arriba */
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--color-bg-light); /* Borde sutil */
         }
 
         .nav-title {
@@ -42,28 +67,45 @@
         .nav-title img {
             width: 120px;
             height: auto;
+            /* Aplicamos el mismo "glow" que en el login */
+            filter: drop-shadow(0 0 10px var(--color-brand-glow));
+            animation: pulseGlow 4s infinite ease-in-out;
+        }
+        
+        /* Keyframes para el glow (copiado de login.html) */
+        @keyframes pulseGlow {
+            0% { filter: drop-shadow(0 0 10px var(--color-brand-glow)); }
+            50% { filter: drop-shadow(0 0 20px var(--color-brand-glow)); }
+            100% { filter: drop-shadow(0 0 10px var(--color-brand-glow)); }
         }
 
         .nav-title span {
-            font-size: 26px;
-            font-weight: 600;
-            letter-spacing: 1px;
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 1.5px; /* Consistente */
+            text-transform: uppercase; /* Consistente */
+            color: var(--color-text);
         }
 
+        /* --- Botón de Logout (Estilo Botón Primario) --- */
         .logout-button {
-            background-color: #E67E22; /* Naranja vibrante */
-            color: white; /* Texto blanco para contraste */
             display: flex;
             align-items: center;
             gap: 10px;
-            padding: 10px 18px;
-            border: none;
-            border-radius: 8px;
+            padding: 12px 20px;
             font-size: 15px;
-            font-weight: 600;
+            font-weight: 700;
+            background-color: var(--color-brand);
+            color: white;
+            border: none;
+            border-radius: 12px; /* Consistente */
             cursor: pointer;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
             transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            
+            /* Sombra del botón (consistente) */
+            box-shadow: 0 5px 20px rgba(230, 126, 34, 0.3);
         }
 
         .logout-button svg {
@@ -72,34 +114,37 @@
         }
 
         .logout-button:hover {
-            background-color: #D35400; /* Naranja más oscuro al pasar el ratón */
-            transform: scale(1.03);
+            box-shadow: 0 8px 30px rgba(230, 126, 34, 0.5);
+            transform: translateY(-3px); /* Consistente */
         }
 
+        /* --- Contenedor Principal (La Tarjeta Neumórfica) --- */
         .container {
             max-width: 1200px;
+            width: 90%;
             margin: 40px auto;
-            padding: 30px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
-            /* flex-grow: 1 permite que el contenedor crezca y empuje el footer hacia abajo */
+            padding: 40px; /* Más padding */
+            
+            /* --- Efecto Neumorfismo Oscuro (IDÉNTICO al login) --- */
+            background-color: var(--color-bg-dark);
+            border-radius: 25px;
+            box-shadow: 12px 12px 24px var(--color-bg-shadow),
+                        -12px -12px 24px var(--color-bg-light);
+            
             flex-grow: 1;
-            width: 90%; /* Hacemos que sea un poco más responsivo */
         }
 
+        /* --- Footer (Minimalista) --- */
         .footer {
-            background-color: #2C3E50; /* Gris carbón oscuro (igual que el navbar) */
-            color: white;
+            color: var(--color-text-muted); /* Color sutil */
             text-align: center;
-            padding: 20px;
+            padding: 25px;
             font-weight: 500;
             font-size: 14px;
-            /* Se mantiene al final */
-            margin-top: auto;
+            margin-top: auto; /* Se mantiene al final */
         }
 
-        /* Estilos del Modal (sin cambios) */
+        /* --- Estilos del Modal (Re-skin "Tech") --- */
         .modal {
             display: none;
             position: fixed;
@@ -108,125 +153,128 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.4);
+            
+            /* Fondo "glass" oscuro */
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            
             align-items: center;
             justify-content: center;
         }
 
+        /* Tarjeta del modal (Neumórfica) */
         .modal-content {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            width: 350px;
+            background-color: var(--color-bg-dark);
+            padding: 35px 40px;
+            border-radius: 20px; /* Consistente */
+            width: 380px;
             text-align: center;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            
+            /* Sombra neumórfica */
+            box-shadow: 12px 12px 24px var(--color-bg-shadow),
+                        -12px -12px 24px var(--color-bg-light);
         }
 
         .modal-content p {
             font-size: 18px;
             font-weight: 600;
-            color: #333;
+            color: var(--color-text);
+            margin-top: 0;
         }
 
         .modal-buttons {
-            margin-top: 25px;
+            margin-top: 30px;
             display: flex;
             justify-content: space-between;
+            gap: 15px;
         }
 
         .modal-button {
-            padding: 10px 15px;
+            padding: 12px 15px;
             font-size: 15px;
-            font-weight: 600;
+            font-weight: 700;
             border: none;
-            border-radius: 5px;
+            border-radius: 12px;
             cursor: pointer;
-            width: 48%;
-            transition: background-color 0.3s ease;
+            width: 100%;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
+        /* Botón de Confirmar (Primario, peligroso) */
         .modal-button.confirm {
-            background-color: #dc3545; /* Mantenemos el rojo para "confirmar" peligro */
+            background-color: #c0392b; /* Rojo oscuro */
             color: white;
+            box-shadow: 0 5px 15px rgba(192, 57, 43, 0.3);
         }
 
         .modal-button.confirm:hover {
-            background-color: #b02a37;
+            background-color: #e74c3c; /* Rojo brillante */
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(192, 57, 43, 0.5);
         }
 
+        /* Botón de Cancelar (Secundario, "hundido") */
         .modal-button.cancel {
-            background-color: #95A5A6; /* Un gris neutral para cancelar */
-            color: white;
+            background-color: var(--color-bg-dark);
+            color: var(--color-text-muted);
+            /* Sombra "hundida" (como los inputs del login) */
+            box-shadow: inset 5px 5px 10px var(--color-bg-shadow),
+                        inset -5px -5px 10px var(--color-bg-light);
         }
 
         .modal-button.cancel:hover {
-            background-color: #7F8C8D; /* Gris más oscuro */
+            color: var(--color-text);
+            /* Efecto sutil de presión */
+            box-shadow: inset 7px 7px 14px var(--color-bg-shadow),
+                        inset -7px -7px 14px var(--color-bg-light);
         }
     </style>
 </head>
 <body>
 
-    <!-- Navbar -->
     <div class="navbar">
         <div class="nav-title">
-            <!-- 
-                RUTA CORREGIDA: 
-                Apunta a 'log.png' directamente en 'static/'
-            -->
             <img src="{% static 'log.png' %}" alt="Logo NC Motors">
-            <span>SISTEMA DE GESTIÓN NC MOTORS</span>
+            <span>Sistema de Gestión</span>
         </div>
         
-        <!-- Mostramos el botón solo si el usuario está autenticado -->
         {% if user.is_authenticated %}
             <button class="logout-button" onclick="mostrarModal()">
-                <!-- Icono SVG de logout -->
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1m0-10V5m-6 0h-.01" />
                 </svg>
-                Cerrar Sesión
+                Salir
             </button>
         {% endif %}
     </div>
 
-    <!-- Contenido dinámico -->
     <div class="container">
         {% block content %}
-        <!-- El contenido de las plantillas hijas irá aquí -->
         {% endblock %}
     </div>
 
-    <!-- Footer -->
     <div class="footer">
         NC Motors &copy; {% now "Y" %} | Todos los derechos reservados
     </div>
 
-    <!-- 
-      CAMBIO 1: 
-      Formulario POST oculto para manejar el Logout de forma segura.
-    -->
     <form id="logoutForm" method="POST" action="{% url 'logout' %}" style="display: none;">
         {% csrf_token %}
     </form>
 
 
-    <!-- Modal de confirmación -->
     <div id="logoutModal" class="modal">
         <div class="modal-content">
             <p>¿Seguro que deseas cerrar sesión?</p>
             <div class="modal-buttons">
-                <!-- 
-                    Este botón ahora llama a la función JS corregida
-                -->
-                <button class="modal-button confirm" onclick="confirmarLogout()">Sí, cerrar</button>
                 <button class="modal-button cancel" onclick="cerrarModal()">Cancelar</button>
+                <button class="modal-button confirm" onclick="confirmarLogout()">Sí, salir</button>
             </div>
         </div>
     </div>
 
-    <!-- Scripts -->
     <script>
-        // Funciones del modal
         function mostrarModal() {
             document.getElementById("logoutModal").style.display = "flex";
         }
@@ -235,15 +283,10 @@
             document.getElementById("logoutModal").style.display = "none";
         }
 
-        /* CAMBIO 2: 
-          Esta función ahora envía el formulario POST oculto
-          en lugar de redirigir con GET.
-        */
         function confirmarLogout() {
             document.getElementById("logoutForm").submit();
         }
 
-        // Opcional: Cerrar modal al hacer clic fuera
         var modal = document.getElementById("logoutModal");
         window.onclick = function(event) {
             if (event.target == modal) {
@@ -253,7 +296,6 @@
     </script>
 
     {% block extra_js %}
-    <!-- Bloque para scripts adicionales en plantillas hijas -->
     {% endblock %}
 
 </body>
